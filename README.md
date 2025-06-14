@@ -1,3 +1,73 @@
+📊 Almanaque Financeiro da Série A – 2024
+Uma aplicação interativa construída com Streamlit que apresenta análises financeiras e comparativas dos clubes da Série A do Campeonato Brasileiro. A ferramenta permite explorar receitas, despesas, resultados operacionais e índices de transparência com foco em dados auditados de 2024 e comparações históricas com anos anteriores.
+
+🚀 Funcionalidades
+Análise Individual - 2024: Visualize a demonstração de resultado de um clube específico através de um diagrama de Sankey e gráficos radar comparativos com a média da liga e com o desempenho de 2023.
+
+Análise Individual - Histórica: Explore a evolução financeira dos clubes ao longo do tempo (em desenvolvimento).
+
+Análise Comparativa Simples: Compare clubes em diferentes indicadores (em desenvolvimento).
+
+Análise Conjunta: Veja gráficos e relações entre variáveis esportivas, financeiras e de gestão (em desenvolvimento).
+
+Compare 2 clubes!: Confronte dois clubes lado a lado usando gráficos radar com múltiplas dimensões de desempenho.
+
+Índice de Transparência: Compare o nível de transparência contábil entre os clubes da Série A.
+
+📁 Estrutura de Arquivos
+Financials.py: Script principal que define a interface da aplicação e lógica das visualizações.
+
+resultado.csv, índices.csv, índices_2023.csv, etc.: Bases de dados utilizadas pela aplicação (devem estar no mesmo diretório do app).
+
+Imagens dos clubes hospedadas externamente via GitHub raw links.
+
+🖼️ Tecnologias Utilizadas
+Streamlit – Para criação da interface interativa.
+
+Plotly – Para visualização dos fluxos financeiros com Sankey charts.
+
+Radar Chart (soccerplots) – Para comparar indicadores visuais em múltiplas dimensões.
+
+Pandas/Numpy – Para manipulação de dados.
+
+Matplotlib/PIL – Para imagens e gráficos complementares.
+
+📦 Como Executar Localmente
+Clone este repositório:
+
+bash
+Copiar
+Editar
+git clone https://github.com/seu-usuario/Financials-2025.git
+cd Financials-2025
+Instale os pacotes necessários (recomenda-se uso de um ambiente virtual):
+
+bash
+Copiar
+Editar
+pip install -r requirements.txt
+Execute a aplicação:
+
+bash
+Copiar
+Editar
+streamlit run Financials.py
+Acesse no navegador: http://localhost:8501
+
+📌 Observações
+Os dados são derivados exclusivamente de demonstrações financeiras auditadas.
+
+O foco da aplicação é educacional, analítico e comparativo, sem fins lucrativos.
+
+As imagens dos clubes estão armazenadas via links GitHub raw e são utilizadas apenas para fins ilustrativos.
+
+✍️ Autor
+José Américo Pereira Antunes
+Contato: LinkedIn | GitHub
+
+
+
+## English
 # Almanaque Financeiro da Série A
 
 ## Overview
