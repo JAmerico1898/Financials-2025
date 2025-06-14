@@ -4,11 +4,11 @@ Uma aplicação interativa construída com Streamlit que apresenta análises fin
 🚀 Funcionalidades
 Análise Individual - 2024: Visualize a demonstração de resultado de um clube específico através de um diagrama de Sankey e gráficos radar comparativos com a média da liga e com o desempenho de 2023.
 
-Análise Individual - Histórica: Explore a evolução financeira dos clubes ao longo do tempo (em desenvolvimento).
+Análise Individual - Histórica: Explore a evolução financeira dos clubes ao longo do tempo.
 
-Análise Comparativa Simples: Compare clubes em diferentes indicadores (em desenvolvimento).
+Análise Comparativa Simples: Compare clubes em diferentes indicadores.
 
-Análise Conjunta: Veja gráficos e relações entre variáveis esportivas, financeiras e de gestão (em desenvolvimento).
+Análise Conjunta: Veja gráficos e relações entre variáveis esportivas, financeiras e de gestão.
 
 Compare 2 clubes!: Confronte dois clubes lado a lado usando gráficos radar com múltiplas dimensões de desempenho.
 
