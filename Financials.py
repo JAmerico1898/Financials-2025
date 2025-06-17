@@ -357,16 +357,24 @@ if st.session_state.selected_option == "Compare 2 clubes!":
     </style>
     """, unsafe_allow_html=True)
 
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Compare 2 Clubes:</h4>
-    <p>Confronta dois clubes de sua escolha através de um gráfico radar intuitivo. 
-    Esta visualização apresenta simultaneamente as principais receitas e despesas financeiras, onde
-    cada clube é representado por uma cor distinta, facilitando a identificação rápida de áreas 
-    onde um clube supera o outro, além de revelar os diferentes perfis de geração de receita e 
-    estrutura de gastos.</p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Compare 2 Clubes:</h4>
+        <p>Confronta dois clubes de sua escolha através de um gráfico radar intuitivo. 
+        Esta visualização apresenta simultaneamente as principais receitas e despesas financeiras, onde
+        cada clube é representado por uma cor distinta, facilitando a identificação rápida de áreas 
+        onde um clube supera o outro, além de revelar os diferentes perfis de geração de receita e 
+        estrutura de gastos.</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.write("---")
     
@@ -570,23 +578,31 @@ if st.session_state.selected_option == "Análise Individual - 2024":
         }
     </style>
     """, unsafe_allow_html=True)
-
+    
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Análise Individual - 2024:</h4>
-    <p>Esta análise de resultados oferece uma visão abrangente da Demonstração de Resultados do clube 
-    selecionado por meio de um diagrama de Sankey. Permite entender rapidamente a estrutura financeira 
-    do clube e como os recursos fluem desde as fontes de receita (como direitos de transmissão e negociação de atletas) 
-    até as diferentes categorias de despesas (como a folha de futebol (pessoal + direitos de imagem), 
-    culminando no resultado financeiro final. </p>
-    <p>A apresentação dos dados é ligeiramente diferente da apresentação formal dos clubes. Aqui, optei por apresentar a
-    totalidade das receitas, exceto a financeira, antes da dedução das despesas. Dessa forma, o usuário tem a noção da 
-    RECEITA OPERACIONAL total do clube, depois dos impostos. </p>
-    <p>Além disso, são apresentados dois gráficos radar: o primeiro compara as pricipais receitas e despesas do clube
-    com a média da liga; e o segundo com as mesmas receitas e despesas de 2023 (não ajustadas pela inflação). </p>  
-    <p><b>Nota:</b> Utiliza apenas dados das demonstrações financeiras auditadas.</p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Análise Individual - 2024:</h4>
+        <p>Esta análise de resultados oferece uma visão abrangente da Demonstração de Resultados do clube 
+        selecionado por meio de um diagrama de Sankey. Permite entender rapidamente a estrutura financeira 
+        do clube e como os recursos fluem desde as fontes de receita (como direitos de transmissão e negociação de atletas) 
+        até as diferentes categorias de despesas (como a folha de futebol (pessoal + direitos de imagem), 
+        culminando no resultado financeiro final. </p>
+        <p>A apresentação dos dados é ligeiramente diferente da apresentação formal dos clubes. Aqui, optei por apresentar a
+        totalidade das receitas, exceto a financeira, antes da dedução das despesas. Dessa forma, o usuário tem a noção da 
+        RECEITA OPERACIONAL total do clube, depois dos impostos. </p>
+        <p>Além disso, são apresentados dois gráficos radar: o primeiro compara as pricipais receitas e despesas do clube
+        com a média da liga; e o segundo com as mesmas receitas e despesas de 2023 (não ajustadas pela inflação). </p>  
+        <p><b>Nota:</b> Utiliza apenas dados das demonstrações financeiras auditadas.</p>
+        </div>
+        """, unsafe_allow_html=True)
     st.write("---")
     
     st.markdown("<h5 style='text-align: center; color: black;'>Escolha o Clube</b></h5>", unsafe_allow_html=True)
@@ -2904,367 +2920,8 @@ if st.session_state.selected_option == "Análise Individual - 2024":
         st.markdown("<h5 style='text-align: center;  color: black;'>(em R$ milhões)<br></b></h5>", unsafe_allow_html=True)
         st.markdown("---")
 
-        # Defining labels, sources and targets
+        st.markdown("<h4 style='text-align: center;  color: black;'>Botafogo ainda não divulgou duas DFs</b></h4>", unsafe_allow_html=True)
 
-        source = [            0, 1, 2, 3, 4, 5, 6, 7, 8,  9, 16, 16, 16, 16, 16, 16, 17, 23, 17, 17, 18] #19 sources
-        target = [            6, 6, 6, 6, 6, 6, 9, 9, 9, 16, 10, 11, 12, 13, 14, 15, 16, 17, 24, 19, 19] #19 targets
-        value = df.iloc[np.r_[0, 1, 2, 3, 4, 5, 6, 7, 8,  9, 10, 11, 12, 13, 14, 15, 25, 23, 24, 17, 19], np.r_[5]].astype(int) #19 values
-        dfa = df.iloc[:, np.r_[5]].astype(int)
-            
-        link = dict(source=source, target=target, value=value, color=color_link)
-        node = dict(label = label, pad=35, thickness=20)
-        data = go.Sankey(link=link, node=node)
-
-        # Set our X and Y co-ords 
-        x = [0.15,   0.15, 0.15, 0.15, 0.15, 0.15,  0.30, 0.375, 0.375, 0.45, 0.70, 0.70, 0.70, 0.70, 0.70, 0.70, 0.60, 0.65, 0.75,   0.85,  0.55, 0.60]
-        y = [-0.22, -0.00, 0.22, 0.44, 0.66, 0.88, -0.05, 0.35,   0.65, 0.10, 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, 0.32, -0.15, -0.25, -0.10, -0.25, 0.00]
-        x = [.001 if v==0 else .999 if v==1 else v for v in x]
-        y = [.001 if v==0 else .999 if v==1 else v for v in y]
-
-        # Node Colors
-        color_for_nodes =['steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 
-                          'steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 'maroon', 
-                          'maroon', 'maroon', 'maroon', 'maroon', 'maroon', 'maroon', 'maroon',
-                          'maroon', 'maroon', 'maroon', 'maroon', 'maroon', 'grey', 'maroon', 'maroon']
-            
-        color_for_links =['LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue',
-                          'LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue',
-                          'LightSkyBlue', 'indianred', 'indianred',
-                          'indianred', 'indianred', 'indianred', 'indianred', 'indianred',
-                          'indianred', 'darkgrey', 'indianred', 'indianred', 'indianred']
-
-        fig = go.Figure(data=[go.Sankey(
-                # The following line hides our labels. They still show
-                # when you hover the mouse over an object
-                textfont=dict(color="rgba(0,0,0,0)", size=1),
-                node = dict(
-                    pad = 35,
-                    line = dict(color = "white", width = 1),
-                    label = label,
-                    x = x,
-                    y = y
-                ),
-                link = dict(
-                    source = source,
-                    target = target,
-                    value = value
-                    ))])
-
-        # Update our chart
-        fig.update_layout(
-            hovermode='x',
-        )
-        # Apply node and link colour choices
-        fig.update_traces(node_color = color_for_nodes,
-                        link_color = color_for_links)
-            
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.43, y=1.39, xanchor='left', showarrow=False, text='<b>Venda de Direitos<br>Liga Forte</b>'))
-        fig.add_annotation(dict(font=dict(color="grey", size=11), x=0.49, y=1.28, showarrow=False, text=f'<b>{dfa.iat[23,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=1.31, xanchor='left', showarrow=False, text='<b>Direitos de<br>transmissão</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=1.20, showarrow=False, text=f'<b>{dfa.iat[0,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=1.08, xanchor='left', showarrow=False, text='<b>Publicidade e<br>patrocínio</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.97, showarrow=False, text=f'<b>{dfa.iat[1,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.87, xanchor='left', showarrow=False, text='<b>Arrecadação<br>de jogos</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.76, showarrow=False, text=f'<b>{dfa.iat[2,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.60, xanchor='left', showarrow=False, text='<b>Sócio-torcedor</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.54, showarrow=False, text=f'<b>{dfa.iat[3,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.37, xanchor='left', showarrow=False, text='<b>Premiações</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.28, showarrow=False, text=f'<b>{dfa.iat[4,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.12, xanchor='left', showarrow=False, text='<b>Licenciamento<br>da marca</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.06, showarrow=False, text=f'<b>{dfa.iat[5,0]}</b>'))
-            
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.255, y=1.30, xanchor='left', showarrow=False, text='<b>RECEITA<br>RECORRENTE</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=10), x=0.285, y=1.21, showarrow=False, text=f'<b>{dfa.iat[6,0]}</b>'))
-            
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.27, y=0.76, xanchor='left', showarrow=False, text='<b>Negociação<br>de atletas</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.30, y=0.62, showarrow=False, text=f'<b>{dfa.iat[7,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.27, y=0.35, xanchor='left', showarrow=False, text='<b>Ajutes em<br>ROL</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.30, y=0.25, showarrow=False, text=f'<b>{dfa.iat[8,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.40, y=1.15, xanchor='left', showarrow=False, text='<b>RECEITA<br>OPERACIONAL</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=10), x=0.45, y=1.05, showarrow=False, text=f'<b>{dfa.iat[9,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.56, y=0.50, xanchor='left', showarrow=False, text='<b>DESPESAS</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.595, y=0.45, showarrow=False, text=f'<b>{dfa.iat[16,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=1.05, xanchor='left', showarrow=False, text='<b>Pessoal e<br>encargos</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.775, y=0.94, showarrow=False, text=f'<b>{dfa.iat[10,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=0.88, xanchor='left', showarrow=False, text='<b>Direitos de<br>imagem</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.78, y=0.78, showarrow=False, text=f'<b>{dfa.iat[11,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=0.66, xanchor='left', showarrow=False, text='<b>Despesas com<br>jogos</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.79, y=0.58, showarrow=False, text=f'<b>{dfa.iat[12,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=0.505, xanchor='left', showarrow=False, text='<b>Despesas gerais<br>e administrativas</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.80, y=0.425, showarrow=False, text=f'<b>{dfa.iat[13,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=0.35, xanchor='left', showarrow=False, text='<b>Depreciação<br>amortização</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.78, y=0.25, showarrow=False, text=f'<b>{dfa.iat[14,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.73, y=0.16, xanchor='left', showarrow=False, text='<b>Outras despesas</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.795, y=0.10, showarrow=False, text=f'<b>{dfa.iat[15,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.60, y=1.39, xanchor='left', showarrow=False, text='<b>RESULTADO<br>OPERACIONAL</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.65, y=1.30, showarrow=False, text=f'<b>{dfa.iat[17,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.80, y=1.34, xanchor='left', showarrow=False, text='<b>RESULTADO<br>FINANCEIRO</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.85, y=1.25, showarrow=False, text=f'<b>{dfa.iat[18,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.88, y=1.16, xanchor='left', showarrow=False, text='<b>RESULTADO</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.93, y=1.11, showarrow=False, text=f'<b>{dfa.iat[19,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.54, y=0.98, xanchor='left', showarrow=False, text='<b>Outras Despesas<br>Operacionais</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.595, y=0.89, showarrow=False, text=f'<b>{dfa.iat[24,0]}</b>'))
-
-        fig.add_layout_image(
-            dict(
-                source="https://raw.githubusercontent.com/JAmerico1898/Financials-2025/b8aa21e79bd9f585f0acd3daf3d22d6c1002c314/Botafogo.png",  # Change this to your image path
-                xref="paper",  # Use "paper" for relative positioning within the plot
-                yref="paper",
-                x=1,  # Bottom left corner
-                y=0,  # Bottom left corner
-                sizex=0.1,  # Size of the image in x-axis proportion of plot's width
-                sizey=0.1,  # Size of the image in y-axis proportion of plot's height
-                xanchor="right",  # Anchor point is set to the left of the image
-                yanchor="bottom"  # Anchor point is set to the bottom of the image
-            )
-        )
-
-        st.plotly_chart(fig)
-
-#############################################################################################################################################
-#############################################################################################################################################
-
-        markdown_1 = f"<div style='text-align:center;  color: grey; font-weight: bold; font-size:{fontsize}px'>{clube:}</div>"
-        st.markdown("<h4 style='text-align: center;  color: black;'>Demonstração de Fluxo de Caixa</b></h4>", unsafe_allow_html=True)
-        st.markdown("<h5 style='text-align: center;  color: black;'>(em R$ milhões)<br></b></h5>", unsafe_allow_html=True)
-        st.markdown(markdown_1, unsafe_allow_html=True)
-        st.markdown("---")
-
-        # Defining labels, sources and targets
-
-        source =              [0, 1, 2, 3, 4, 5, 6,  8,  7,  8,  8,   8,  8,  8, 14, 15, 20, 20, 16, 16, 16, 22] #21 sources
-        target =              [7, 7, 7, 7, 7, 7, 7, 15,  8,  9, 10,  11, 12, 13, 8,  16, 16, 21, 17, 18, 19, 15] #21 targets
-        value = df2.iloc[np.r_[0, 1, 2, 3, 4, 5, 6, 21,  7,  9, 10,  11, 12, 13, 14, 15, 20, 21, 17, 18, 19, 22], np.r_[5]].astype(int) #19 values
-        dfa = df2.iloc[:, np.r_[5]].astype(int)
-        link = dict(source=source, target=target, value=value, color=color_link)
-        node = dict(label = label_caixa, pad=35, thickness=20)
-        data = go.Sankey(link=link, node=node)
-
-        # Set our X and Y co-ords 
-        x = [0.15, 0.15, 0.15, 0.15, 0.15, 0.15,   0.15, 0.30, 0.42, 0.55, 0.55, 0.55, 0.55,  0.55,  0.35, 0.60,  0.78, 0.92, 0.92, 0.88, 0.68,  0.88, 0.45]
-        y = [-0.22, -0.00, 0.22, 0.44, 0.66, 0.88, 1.08, 0.00, 0.35, 0.45, 0.60, 0.75, 0.90, 1.15,  0.90, -0.05, -0.05, 0.05, 0.20, 0.30, 0.15,  0.60, -0.20]
-        x = [.001 if v==0 else .999 if v==1 else v for v in x]
-        y = [.001 if v==0 else .999 if v==1 else v for v in y]
-
-        # Node Colors
-        color_for_nodes =['steelblue', 'steelblue', 'steelblue', 'steelblue', 'steelblue', 
-                          'steelblue', 'steelblue', 'steelblue', 'maroon', 'maroon', 'maroon', 
-                          'maroon', 'maroon', 'maroon', 'steelblue', 'limegreen', 'maroon',
-                          'maroon', 'maroon', 'maroon', 'limegreen', 'limegreen', 'grey']
-            
-        color_for_links =['LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue',
-                          'LightSkyBlue', 'LightSkyBlue', 'LightSkyBlue', 'indianred',
-                          'indianred', 'indianred', 'indianred', 'indianred',
-                          'indianred', 'indianred', 'LightSkyBlue', 'indianred', 'Lime',
-                          'Lime', 'indianred', 'indianred', 'indianred', 'darkgrey']
-
-        fig = go.Figure(data=[go.Sankey(
-                # The following line hides our labels. They still show
-                # when you hover the mouse over an object
-                textfont=dict(color="rgba(0,0,0,0)", size=1),
-                node = dict(
-                    pad = 35,
-                    line = dict(color = "white", width = 1),
-                    label = label_caixa,
-                    x = x,
-                    y = y
-                ),
-                link = dict(
-                    source = source,
-                    target = target,
-                    value = value
-                    ))])
-
-        # Update our chart
-        fig.update_layout(
-            hovermode='x',
-        )
-        # Apply node and link colour choices
-        fig.update_traces(node_color = color_for_nodes,
-                        link_color = color_for_links)
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.39, y=1.385, xanchor='left', showarrow=False, text='<b>Venda de Direitos<br>Liga Forte</b>'))
-        fig.add_annotation(dict(font=dict(color="grey", size=11), x=0.45, y=1.27, showarrow=False, text=f'<b>{dfa.iat[22,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=1.31, xanchor='left', showarrow=False, text='<b>Direitos de<br>transmissão</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=1.20, showarrow=False, text=f'<b>{dfa.iat[0,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=1.08, xanchor='left', showarrow=False, text='<b>Publicidade e<br>patrocínio</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.97, showarrow=False, text=f'<b>{dfa.iat[1,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.87, xanchor='left', showarrow=False, text='<b>Arrecadação<br>de jogos</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.76, showarrow=False, text=f'<b>{dfa.iat[2,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.60, xanchor='left', showarrow=False, text='<b>Sócio-torcedor</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.54, showarrow=False, text=f'<b>{dfa.iat[3,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.37, xanchor='left', showarrow=False, text='<b>Premiações</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.28, showarrow=False, text=f'<b>{dfa.iat[4,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=0.12, xanchor='left', showarrow=False, text='<b>Licenciamento<br>da marca</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=0.06, showarrow=False, text=f'<b>{dfa.iat[5,0]}</b>'))
-            
-        fig.add_annotation(dict(font=dict(color="black", size=11), x=0.02, y=-0.13, xanchor='left', showarrow=False, text='<b>Negociação<br>de atletas</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=11), x=0.05, y=-0.19, showarrow=False, text=f'<b>{dfa.iat[6,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.26, y=1.27, xanchor='left', showarrow=False, text='<b>GERAÇÃO DE<br>CAIXA TOTAL</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=10), x=0.285, y=1.17, showarrow=False, text=f'<b>{dfa.iat[7,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.37, y=0.90, xanchor='left', showarrow=False, text='<b>SAÍDAS DE CAIXA<br>OPERACIONAIS</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.43, y=0.81, showarrow=False, text=f'<b>{dfa.iat[8,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.54, y=1.25, xanchor='left', showarrow=False, text='<b>GERAÇÃO DE CAIXA<br>OPERACIONAL</b>'))
-        fig.add_annotation(dict(font=dict(color="LIMEGREEN", size=10), x=0.60, y=1.15, showarrow=False, text=f'<b>{dfa.iat[15,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.57, y=0.58, xanchor='left', showarrow=False, text='<b>Pessoal e<br>encargos</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.6, y=0.51, showarrow=False, text=f'<b>{dfa.iat[9,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.57, y=0.41, xanchor='left', showarrow=False, text='<b>Direitos de<br>imagem</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.60, y=0.34, showarrow=False, text=f'<b>{dfa.iat[10,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.57, y=0.21, xanchor='left', showarrow=False, text='<b>Despesas com<br>jogos</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.61, y=0.16, showarrow=False, text=f'<b>{dfa.iat[11,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.57, y=0.05, xanchor='left', showarrow=False, text='<b>Despesas gerais<br>e administrativas</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.62, y=-0.0, showarrow=False, text=f'<b>{dfa.iat[12,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.57, y=-0.15, xanchor='left', showarrow=False, text='<b>Outras despesas</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.62, y=-0.2, showarrow=False, text=f'<b>{dfa.iat[13,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.23, y=0.12, xanchor='left', showarrow=False, text='<b>Ajuste na Geração de<br>Caixa Operacional</b>'))
-        fig.add_annotation(dict(font=dict(color="steelblue", size=10), x=0.29, y=0.06, showarrow=False, text=f'<b>{dfa.iat[14,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.725, y=1.32, xanchor='left', showarrow=False, text='<b>CAIXA DESTINADO<br>A INVESTIMENTOS</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.795, y=1.22, showarrow=False, text=f'<b>{dfa.iat[16,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.91, y=1.10, xanchor='left', showarrow=False, text='<b>Compra<br>de Jogadores</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.965, y=0.99, showarrow=False, text=f'<b>{dfa.iat[17,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.91, y=0.90, xanchor='left', showarrow=False, text='<b>Compra de<br>Imobilizado</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.96, y=0.81, showarrow=False, text=f'<b>{dfa.iat[18,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.52, y=0.90, xanchor='left', showarrow=False, text='<b>CAIXA DESTINADO<br>A FINANCIAMENTOS<br>(Empréstimos 358M)</b>'))
-        fig.add_annotation(dict(font=dict(color="limegreen", size=10), x=0.59, y=0.75, showarrow=False, text=f'<b>{dfa.iat[20,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.85, y=0.28, xanchor='left', showarrow=False, text='<b>AUMENTO<br>DE CAIXA</b>'))
-        fig.add_annotation(dict(font=dict(color="limegreen", size=10), x=0.90, y=0.18, showarrow=False, text=f'<b>{dfa.iat[21,0]}</b>'))
-
-        fig.add_annotation(dict(font=dict(color="black", size=10), x=0.83, y=0.56, xanchor='left', showarrow=False, text='<b>Mútuo c/ Partes<br>Relacionadas<br>(369M)</b>'))
-        fig.add_annotation(dict(font=dict(color="indianred", size=10), x=0.89, y=0.46, showarrow=False, text=f'<b>{dfa.iat[19,0]}</b>'))
-
-        fig.add_layout_image(
-            dict(
-                source="https://raw.githubusercontent.com/JAmerico1898/Financials-2025/b8aa21e79bd9f585f0acd3daf3d22d6c1002c314/Botafogo.png",  # Change this to your image path
-                xref="paper",  # Use "paper" for relative positioning within the plot
-                yref="paper",
-                x=1,  # Bottom left corner
-                y=0,  # Bottom left corner
-                sizex=0.1,  # Size of the image in x-axis proportion of plot's width
-                sizey=0.1,  # Size of the image in y-axis proportion of plot's height
-                xanchor="right",  # Anchor point is set to the left of the image
-                yanchor="bottom"  # Anchor point is set to the bottom of the image
-            )
-        )
-
-        st.plotly_chart(fig)
-
-#############################################################################################################################################
-#############################################################################################################################################
-
-        #Plotar Gráfico Alternativo
-        fontsize=28
-        # Player Comparison Data
-        markdown_1 = f"<div style='text-align:center;  color: grey; font-weight: bold; font-size:{fontsize}px'>{clube:}</div>"
-        st.markdown("<h4 style='text-align: center;'>Comparativo com a Média da Liga</h4>", unsafe_allow_html=True)
-        st.markdown(markdown_1, unsafe_allow_html=True)
-        dfb = df1.iloc[np.r_[47, 1:5, 6:8, 22, 26], np.r_[0:21]]
-        dfb_transposed = dfb.T
-        # Set the first row as the new header
-        dfb_transposed.columns = dfb_transposed.iloc[0]
-        # Drop the first row
-        dfb_transposed = dfb_transposed.iloc[1:]
-        # Rename the first column to 'clubs'
-        dfb_transposed.index.name = 'Clubes'
-        dfb = dfb_transposed
-        # Renaming Columns
-        dfb = dfb.rename(columns={"Receita c/ Publicidade e patrocínio": "Publicidade/patrocínio",
-                                  "Receita c/ Match-Day": "Match-Day",
-                                  "Receita c/ Sócio-torcedor": "Sócio-Torcedor",
-                                  "Receita c/ Negociação de atletas": "Venda de jogadores",
-                                  "Receita c/ Direitos de transmissão": "Direitos de transmissão" 
-                                  })
-        # Preparing the Graph
-        params = list(dfb.columns)
-        params = params[0:]
-
-        #Preparing Data
-        ranges = []
-        a_values = []
-        b_values = []
-
-        for x in params:
-            a = min(dfb[params][x])
-            a = a
-            b = max(dfb[params][x])
-            b = b
-            ranges.append((a, b))
-
-        for x in range(len(dfb.index)):
-            if dfb.index[x] == clube:
-                a_values = dfb.iloc[x].values.tolist()
-            if dfb.index[x] == 'Média da Liga':
-                b_values = dfb.iloc[x].values.tolist()
-                                    
-        a_values = a_values[0:]
-        b_values = b_values[0:]
-
-        # Rounding values to no decimal places
-        a_values = [round(value) for value in a_values]
-        b_values = [round(value) for value in b_values]
-
-        values = [a_values, b_values]
-
-        #Plotting Data
-        title = dict(
-            title_name = clube,
-            title_color = '#B6282F',
-            subtitle_name = "(R$ milhões)",
-            subtitle_color = '#B6282F',
-            title_name_2 = 'Média da Liga',
-            title_color_2 = '#344D94',
-            subtitle_name_2 = "(R$ milhões)",
-            subtitle_color_2 = '#344D94',
-            title_fontsize = 18,
-        ) 
-
-        ## instantiate object
-        radar = Radar()
-
-        ## instantiate object -- changing fontsize
-        radar=Radar(fontfamily='Cursive', range_fontsize=14)
-        radar=Radar(fontfamily='Cursive', label_fontsize=14)
-
-        fig,ax = radar.plot_radar(ranges=ranges,params=params,values=values,radar_color=['#B6282F', '#344D94'], dpi=600, alphas=[.6,.5], title=title, compare=True)
-        st.pyplot(fig)
 
 #############################################################################################################################################
 #############################################################################################################################################
@@ -8657,18 +8314,26 @@ elif st.session_state.selected_option == "Análise Comparativa Simples":
     </style>
     """, unsafe_allow_html=True)
 
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Análise Comparativa Simples:</h4>
-    <p>A Análise Comparativa Simples oferece duas visualizações complementares para a análise financeira dos clubes da Série A. 
-    Na primeira, você pode comparar o desempenho de todos os clubes em um indicador específico (Contábil, Esportivo, Gerencial) 
-    para o ano de 2024, visualizando de forma clara a posição relativa de cada clube.</p>
-    <p>Na segunda visualização, é apresentada a evolução de um clube específico (em destaque) ao longo de cinco anos (2020-2024) 
-    em comparação com todos os demais clubes (representados pelas linhas tracejadas em segundo plano). Esta visualização temporal 
-    permite identificar tendências, oscilações e o posicionamento do clube selecionado em relação ao mercado, facilitando a 
-    compreensão do desenvolvimento financeiro no contexto competitivo do futebol brasileiro.</p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Análise Comparativa Simples:</h4>
+        <p>A Análise Comparativa Simples oferece duas visualizações complementares para a análise financeira dos clubes da Série A. 
+        Na primeira, você pode comparar o desempenho de todos os clubes em um indicador específico (Contábil, Esportivo, Gerencial) 
+        para o ano de 2024, visualizando de forma clara a posição relativa de cada clube.</p>
+        <p>Na segunda visualização, é apresentada a evolução de um clube específico (em destaque) ao longo de cinco anos (2020-2024) 
+        em comparação com todos os demais clubes (representados pelas linhas tracejadas em segundo plano). Esta visualização temporal 
+        permite identificar tendências, oscilações e o posicionamento do clube selecionado em relação ao mercado, facilitando a 
+        compreensão do desenvolvimento financeiro no contexto competitivo do futebol brasileiro.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<h5 style='text-align: center; color: black;'>Escolha o Clube para destacar</b></h5>", unsafe_allow_html=True)
     highlight = st.selectbox("", options=clubes, index=None, placeholder="Escolha o Clube!")
@@ -16710,18 +16375,26 @@ elif st.session_state.selected_option == "Análise Conjunta":
     </style>
     """, unsafe_allow_html=True)
 
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Análise Conjunta:</h4>
-    <p>A Análise Conjunta permite explorar a relação entre duas variáveis de interesse 
-    (financeiras, esportivas ou gerenciais) através de um gráfico de dispersão interativo. 
-    A visualização inclui uma linha de regressão que indica a tendência geral da relação, 
-    complementada pelos indicadores estatísticos R-squared e coeficiente de correlação de Pearson, 
-    que quantificam a força dessa relação. Esta ferramenta possibilita identificar padrões, 
-    como verificar se clubes com maiores receitas de transmissão tendem a obter melhores pontuações no campeonato, 
-    ou detectar clubes que apresentam desempenho acima ou abaixo do esperado considerando os recursos disponíveis.</p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Análise Conjunta:</h4>
+        <p>A Análise Conjunta permite explorar a relação entre duas variáveis de interesse 
+        (financeiras, esportivas ou gerenciais) através de um gráfico de dispersão interativo. 
+        A visualização inclui uma linha de regressão que indica a tendência geral da relação, 
+        complementada pelos indicadores estatísticos R-squared e coeficiente de correlação de Pearson, 
+        que quantificam a força dessa relação. Esta ferramenta possibilita identificar padrões, 
+        como verificar se clubes com maiores receitas de transmissão tendem a obter melhores pontuações no campeonato, 
+        ou detectar clubes que apresentam desempenho acima ou abaixo do esperado considerando os recursos disponíveis.</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.write("---")
 
@@ -16989,16 +16662,24 @@ if st.session_state.selected_option == "Análise Individual - Histórica":
     </style>
     """, unsafe_allow_html=True)
 
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Análise Individual - Histórica:</h4>
-    <p>Esta análise compara as principais receitas e despesas do clube, além de outros indicadores, ao longo de cinco anos (2020-2024). 
-    Cada cor representa um ano diferente, permitindo identificar rapidamente tendências de crescimento ou queda em cada 
-    categoria ao longo do tempo. Esta ferramenta auxilia na compreensão da evolução da estrutura financeira do clube, 
-    destacando mudanças estratégicas na geração de receitas e possibilitando uma análise da sustentabilidade financeira a médio prazo.</p>
-    <p>Os dados estão corrigidos pela inflação (IPCA). </p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Análise Individual - Histórica:</h4>
+        <p>Esta análise compara as principais receitas e despesas do clube, além de outros indicadores, ao longo de cinco anos (2020-2024). 
+        Cada cor representa um ano diferente, permitindo identificar rapidamente tendências de crescimento ou queda em cada 
+        categoria ao longo do tempo. Esta ferramenta auxilia na compreensão da evolução da estrutura financeira do clube, 
+        destacando mudanças estratégicas na geração de receitas e possibilitando uma análise da sustentabilidade financeira a médio prazo.</p>
+        <p>Os dados estão corrigidos pela inflação (IPCA). </p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<h5 style='text-align: center; color: black;'>Escolha o Clube</b></h5>", unsafe_allow_html=True)
     clube = st.selectbox("", options=clubes, index=None, placeholder="Escolha o Clube!")
@@ -21847,19 +21528,27 @@ elif st.session_state.selected_option == "Índice de Transparência":
     </style>
     """, unsafe_allow_html=True)
 
+    # Custom styled title
     st.markdown("""
-    <div class="info-box">
-    <h4>Índice de Transparência:</h4>
-    <p>O Índice de Transparência das Demonstrações Financeiras oferece uma avaliação objetiva da qualidade 
-    e abrangência dos relatórios financeiros publicados pelos clubes brasileiros. Baseado em metodologia acadêmica, 
-    o índice analisa três níveis distintos: Reportes Obrigatórios (exigidos por lei), 
-    Reportes Discricionários (informações voluntárias) e Indicadores de Qualidade (aspectos que elevam a utilidade das informações). 
-    O resultado é apresentado em um gráfico de barras empilhadas que permite visualizar a pontuação total de cada clube 
-    e a contribuição de cada nível para essa pontuação, além de uma tabela detalhada com os valores específicos. 
-    Esta ferramenta possibilita comparar objetivamente as práticas de transparência financeira entre os clubes, 
-    incentivando melhores padrões de governança no futebol brasileiro.</p>
-    </div>
+    <h5 style='font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; color: #1E3A8A; margin-bottom: 10px;'>
+    ℹ️ Sobre esta análise
+    </h5>
     """, unsafe_allow_html=True)
+
+    with st.expander("ℹ️ Clique para expandir", expanded=False):
+        st.markdown("""
+        <div class="info-box">
+        <h4>Índice de Transparência:</h4>
+        <p>O Índice de Transparência das Demonstrações Financeiras oferece uma avaliação objetiva da qualidade 
+        e abrangência dos relatórios financeiros publicados pelos clubes brasileiros. Baseado em metodologia acadêmica, 
+        o índice analisa três níveis distintos: Reportes Obrigatórios (exigidos por lei), 
+        Reportes Discricionários (informações voluntárias) e Indicadores de Qualidade (aspectos que elevam a utilidade das informações). 
+        O resultado é apresentado em um gráfico de barras empilhadas que permite visualizar a pontuação total de cada clube 
+        e a contribuição de cada nível para essa pontuação, além de uma tabela detalhada com os valores específicos. 
+        Esta ferramenta possibilita comparar objetivamente as práticas de transparência financeira entre os clubes, 
+        incentivando melhores padrões de governança no futebol brasileiro.</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.write("---")
 
