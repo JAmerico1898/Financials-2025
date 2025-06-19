@@ -21773,7 +21773,7 @@ st.markdown(
     """
     <div style="text-align: center; color: gray; font-size: 0.9em;">
         Almanaque Financeiro da Série A - 2024<br>
-        2025 - @JAmerico1898
+        2025 - José Américo
     </div>
     """,
     unsafe_allow_html=True
